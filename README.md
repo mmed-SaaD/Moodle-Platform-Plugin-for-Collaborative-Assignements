@@ -125,8 +125,8 @@ Prévu dans les versions futures :
 
 Pour toute question ou collaboration :
 
-- 📧 Email: votre-email@example.com
-- 🔗 LinkedIn: [Votre profil](https://linkedin.com/in/votre-profil)
+- 📧 Email: bazourhi.med.saad@gmail.com
+- 🔗 LinkedIn: https://www.linkedin.com/in/mohamed-saad-bazourhi-3b8445235/
 
 ## Licence
 
