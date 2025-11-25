@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<XMLDB PATH="mod/devoir/db" VERSION="20120122" COMMENT="XMLDB file for Moodle mod/devoir"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../../lib/xmldb/xmldb.xsd"
+>
+  <TABLES>
+
+
+    <TABLE NAME="devoir" COMMENT="Devoir">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="course" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="titre" TYPE="text" LENGTH="1000" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="type" TYPE="text" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="description" TYPE="text" LENGTH="3000" NOTNULL="false" SEQUENCE="false"/>
+        <FIELD NAME="nombre_etudiants_par_groupe" TYPE="int" LENGTH="5" SEQUENCE="false"/>
+        <FIELD NAME="fichier" TYPE="binary" LENGTH="10000000" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="bareme" TYPE="text" LENGTH="5000" NOTNULL="true"  SEQUENCE="false"/>
+        <FIELD NAME="date_start" TYPE="int" NOTNULL="true" LENGTH="10" SEQUENCE="false"/>
+        <FIELD NAME="date_end" TYPE="int" NOTNULL="true" LENGTH="10" SEQUENCE="false"/>
+        <FIELD NAME="depot_devoir" TYPE="int" NOTNULL="true" DEFAULT="0" LENGTH="10" SEQUENCE="false"/>
+        <FIELD NAME="id_enseignant" TYPE="int" LENGTH="10" NOTNULL="true"  SEQUENCE="false"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="id_devoir" TYPE="primary" FIELDS="id"/>
+        <KEY NAME="id_enseignant" TYPE="foreign" FIELDS="id_enseignant" REFTABLE="mdl_user" REFFIELDS="id"/>
+        <KEY NAME="id_cours" TYPE="foreign" FIELDS="course" REFTABLE="mdl_course" REFFIELDS="id"/>
+      </KEYS>
+    </TABLE> 
+
+
+    <TABLE NAME="utilisateur" COMMENT="Devoir">
+       <FIELDS>
+          <FIELD NAME="id_user" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+          <FIELD NAME="role" TYPE="text" LENGTH="500" NOTNULL="true" SEQUENCE="false"/>
+       </FIELDS>
+       <KEYS>
+        <KEY NAME="id_utilisateur" TYPE="foreign" FIELDS="id_user" REFTABLE="mdl_user" REFFIELDS="id"/>
+       </KEYS>
+       <INDEXES>
+        <INDEX NAME="id_user" UNIQUE="true" FIELDS="id_user"/>
+       </INDEXES>
+    </TABLE>
+
+
+    <TABLE NAME="appartenir" COMMENT="Devoir">
+        <FIELDS>
+          <FIELD NAME="id_groupe" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" />
+          <FIELD NAME="id_user" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" />
+       </FIELDS>
+       <KEYS>
+        <KEY NAME="id_groupe" TYPE="foreign" FIELDS="id_groupe" REFTABLE="mdl_groups" REFFIELDS="id" />
+        <KEY NAME="id_utilisateur" TYPE="foreign" FIELDS="id_user" REFTABLE="mdl_user" REFFIELDS="id" />
+       </KEYS>
+       <INDEXES>
+            <INDEX NAME="id_groupe" UNIQUE="true" FIELDS="id_groupe" />
+       </INDEXES>
+    </TABLE>
+
+
+    <TABLE NAME="etudier" COMMENT="Devoir">
+       <FIELDS>
+         <FIELD NAME="id_course" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" />
+         <FIELD NAME="id_user" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" />
+       </FIELDS>
+       <KEYS>
+          <KEY NAME="id_course" TYPE="foreign" FIELDS="id_course" REFTABLE="course" REFFIELDS="id" />
+          <KEY NAME="id_user" TYPE="foreign" FIELDS="id_user" REFTABLE="mdl_user" REFFIELDS="id" />
+       </KEYS>
+     </TABLE>
+     
+      <TABLE NAME="submit" COMMENT="Devoir">
+       <FIELDS>
+          <FIELD NAME="id" TYPE="bigint" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+          <FIELD NAME="userfrom" TYPE="bigint" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+          <FIELD NAME="file" TYPE="varchar" LENGTH="300" NOTNULL="true" SEQUENCE="false"/>
+          <FIELD NAME="userto" TYPE="bigint" LENGTH="100" NOTNULL="true" SEQUENCE="false"/>
+          <FIELD NAME="id_dev" TYPE="bigint" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+          <FIELD NAME="time_submitted" TYPE="bigint" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+       
+</FIELDS>
+       <KEYS>
+        <KEY NAME="id_work" TYPE="primary" FIELDS="id"/>
+        <KEY NAME="userfroms" TYPE="foreign" FIELDS="userfrom" REFTABLE="mdl_user" REFFIELDS="id"/>
+        <KEY NAME="usertos" TYPE="foreign" FIELDS="userto" REFTABLE="mdl_user" REFFIELDS="id"/>
+        <KEY NAME="id_devoir" TYPE="foreign" FIELDS="id_dev" REFTABLE="mdl_course_modules" REFFIELDS="id"/>
+       </KEYS>
+    </TABLE>     
+
+     </TABLES>
+     </XMLDB>
